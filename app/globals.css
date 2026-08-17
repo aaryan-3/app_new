@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Color tokens: a dusky-rose, twilight-lavender palette. Warm, dim, private --- */
+  --color-cream: #FBF6F1;
+  --color-cream-deep: #F3EBE3;
+  --color-rose: #C97A93;
+  --color-rose-light: #EBC3CE;
+  --color-rose-deep: #A85D77;
+  --color-lavender: #8E8FC7;
+  --color-lavender-light: #D9D8F0;
+  --color-peach: #EFAE83;
+  --color-peach-light: #F7D9C0;
+  --color-sage: #93B08C;
+  --color-sage-light: #D6E3D0;
+  --color-plum: #3E3548;
+  --color-plum-soft: #6B6075;
+  --color-ink: #2B2531;
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-body: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.75rem;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 8px 30px -12px rgba(62, 53, 72, 0.18);
+  --shadow-softer: 0 4px 16px -8px rgba(62, 53, 72, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(180deg, #FBF6F1 0%, #F6EEE7 40%, #F1E7EE 100%);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-rose-light);
+  color: var(--color-plum);
+}
+
+/* Soft scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-rose-light); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Signature: breathing orb ambient animation */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(12px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+.animate-drift {
+  animation: drift 12s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-breathe, .animate-drift, .animate-fade-up {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Focus visibility, kept soft but present */
+:focus-visible {
+  outline: 2px solid var(--color-rose-deep);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.underline-accent {
+  position: relative;
+  display: inline-block;
+}
+.underline-accent::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: -2px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-peach-light);
+  z-index: -1;
+  opacity: 0.7;
+}
